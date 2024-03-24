@@ -1,10 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
-import { UserService } from './UserService';
+import { RegisterService } from './RegisterService';
 import IUser from 'interfaces/IUser';
 
-export class UserController {
-	constructor(private readonly userService: UserService) {}
+export class RegisterController {
+	constructor(private readonly registerService: RegisterService) {}
 
 	async create(request: Request, response: Response): Promise<Response> {
 		console.log('request', request.body);
@@ -12,7 +12,7 @@ export class UserController {
 		console.log('user', user);
 
 		try {
-			const createUser = await this.userService.create(user);
+			const createUser = await this.registerService.create(user);
 			return response.status(StatusCodes.CREATED).json(createUser);
 			// TODO: Type error
 		} catch (err: any) {
