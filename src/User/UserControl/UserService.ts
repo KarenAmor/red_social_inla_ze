@@ -10,6 +10,11 @@ export class UserService {
 		return users;
 	}
 
+	async findById(userId: string): Promise<Document | null> {
+        const user = await UserSchema.findById(userId);
+        return user;
+    }
+
     async update(userId: string, userData: IUser): Promise<Document | null> {
 		const updatedUser = await UserSchema.findByIdAndUpdate(userId, userData, { new: true });
 		return updatedUser;

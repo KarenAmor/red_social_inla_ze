@@ -7,7 +7,7 @@ interface IUser extends Document {
 	posts: string;
 	createdAt: Date;
 	updatedAt: Date;
-	delete: boolean;
+	deleted: boolean;
 	deletedAt: Date;
 	
 }

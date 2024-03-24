@@ -15,6 +15,20 @@ export class UserController {
 		}
 	}
 
+    async getById(request: Request, response: Response): Promise<Response> {
+        const userId = request.params.id;
+
+        try {
+            const user = await this.userService.findById(userId);
+            if (!user) {
+                return response.status(StatusCodes.NOT_FOUND).json({ message: 'Cliente no encontrado.' });
+            }
+            return response.status(StatusCodes.OK).json(user);
+        } catch (err: any) {
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: err.message });
+        }
+    }
+
     async update(request: Request, response: Response): Promise<Response> {
 		const userId = request.params.id;
 		const userData: IUser = request.body;

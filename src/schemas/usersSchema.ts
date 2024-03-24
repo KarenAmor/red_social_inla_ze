@@ -10,7 +10,7 @@ const userSchema = new Schema<IUser>({
 	posts: { type: String, required: false}, 
 	createdAt: { type: Date, default: Date.now }, 
     updatedAt: { type: Date, required: false, default: Date.now },
-	delete: {type: Boolean, required: false, default: false},
+	deleted: {type: Boolean, required: false, default: false},
     deletedAt: { type: Date, required: false, default: null }
 });
 
