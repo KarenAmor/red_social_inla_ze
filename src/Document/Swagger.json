@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Red Social para la Empresa Inla Ze",
-        "description": "Documentación de la API de Negocio que administra una red social que permita a los usuarios registrarse, iniciar sesión, publicar mensajes, ver el muro, buscar mensajes y otras funcionalidades adicionales.",
+        "description": "Documentación de la API de Negocio que administra una red social que permite a los usuarios registrarse, iniciar sesión, publicar mensajes, ver el muro, buscar mensajes y otras funcionalidades adicionales.",
         "version": "1.0.0"
     },
     "servers": [
@@ -12,255 +12,382 @@
         }
     ],
     "tags": [
-        {
-            "name": "auth",
-            "description": "Servicios de autenticación"
-        },
-        {
-            "name": "user",
-            "description": "Servicios de usuario"
-        },
-        {
-            "name": "post",
-            "description": "Servicios de publicación"
-        }
+        {"name": "auth", "description": "Servicios de autenticación"},
+        {"name": "user", "description": "Servicios de usuario"},
+        {"name": "post", "description": "Servicios de publicación"}
     ],
     "paths": {
         "/auth/register": {
             "post": {
-                "tags": [
-                    "auth"
-                ],
+                "tags": ["auth"],
                 "summary": "Registrarse",
+                "description": "Registro de usuario.",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "Datos de registro del usuario.",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "fullName": {"type": "string"},
+                            "age": {"type": "integer", "format": "int32"},
+                            "email": {"type": "string"},
+                            "password": {"type": "string"}
+                        },
+                        "required": ["fullName", "age", "email", "password"]
+                    }
+                }],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {"type": "string"},
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/auth/login": {
             "post": {
-                "tags": [
-                    "auth"
-                ],
+                "tags": ["auth"],
                 "summary": "Iniciar sesión",
+                "description": "Inicio de sesión del usuario.",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "Credenciales de inicio de sesión.",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "email": {"type": "string"},
+                            "password": {"type": "string"}
+                        },
+                        "required": ["email", "password"]
+                    }
+                }],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {"type": "string"},
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/auth/logout": {
             "post": {
-                "tags": [
-                    "auth"
-                ],
+                "tags": ["auth"],
                 "summary": "Cerrar sesión",
+                "description": "Cierre de sesión del usuario.",
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/auth/refresh": {
             "get": {
-                "tags": [
-                    "auth"
-                ],
+                "tags": ["auth"],
                 "summary": "Refresh token",
+                "description": "Generar un nuevo token de acceso.",
+                "parameters": [{
+                    "name": "refreshToken",
+                    "in": "query",
+                    "description": "Token de actualización.",
+                    "required": true,
+                    "schema": {"type": "string"}
+                }],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "accessToken": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/user/users": {
             "get": {
-                "tags": [
-                    "user"
-                ],
+                "tags": ["user"],
                 "summary": "Obtener información de los usuarios",
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Users": {"type": "object"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/user/user/{id}": {
             "get": {
-                "tags": [
-                    "user"
-                ],
+                "tags": ["user"],
                 "summary": "Obtener información del usuario por ID",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Users": {"type": "object"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/user/users/{id}": {
             "put": {
-                "tags": [
-                    "user"
-                ],
+                "tags": ["user"],
                 "summary": "Actualizar información del usuario por ID",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Users": {"type": "object"},
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             },
             "delete": {
-                "tags": [
-                    "user"
-                ],
+                "tags": ["user"],
                 "summary": "Eliminar usuario por ID (soft delete)",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Users": {"type": "object"},
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/post/post": {
             "get": {
-                "tags": [
-                    "post"
-                ],
+                "tags": ["post"],
                 "summary": "Obtener y filtrar publicaciones",
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}], 
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Post": {"type": "object"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             },
             "post": {
-                "tags": [
-                    "post"
-                ],
+                "tags": ["post"],
                 "summary": "Hacer una publicación",
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}], 
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Post": {"type": "object"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/post/post/{userId}": {
             "get": {
-                "tags": [
-                    "post"
-                ],
+                "tags": ["post"],
                 "summary": "Obtener y filtrar publicaciones por usuario",
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "parameters": [{"name": "userId", "in": "path", "required": true, "schema": {"type": "integer"}}],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Post": {"type": "object"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/post/post/{id}": {
             "put": {
-                "tags": [
-                    "post"
-                ],
+                "tags": ["post"],
                 "summary": "Actualizar una publicación por ID",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Post": {"type": "object"},
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             },
             "delete": {
-                "tags": [
-                    "post"
-                ],
+                "tags": ["post"],
                 "summary": "Eliminar una publicación por ID (soft delete)",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Post": {"type": "object"},
+                                        "message": {"type": "string"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         },
         "/posts/{id}/like": {
             "post": {
-                "tags": [
-                    "post"
-                ],
+                "tags": ["post"],
                 "summary": "Dar like",
+                "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}}], 
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Post": {"type": "object"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {"description": "Not Found"},
+                    "500": {"description": "Internal Server Error"}
                 }
             }
         }
-    }
-}
+    }     
+}  
