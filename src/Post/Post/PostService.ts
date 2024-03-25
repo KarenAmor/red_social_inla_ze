@@ -4,7 +4,7 @@ import UserSchema from '../../schemas/usersSchema';
 import IPost from '../../interfaces/IPost';
 
 export class PostService {
-	constructor(private readonly postRepository: typeof PostSchema, private readonly userRepository?: any) {} // userRepository es ahora opcional
+	constructor(private readonly postRepository: typeof PostSchema, private readonly userRepository?: any) {} 
    
     async findAllWithAuthorName(page: number, pageSize: number): Promise<any[]> {
         const skip = (page - 1) * pageSize;
@@ -58,6 +58,7 @@ export class PostService {
         }
     
         post.likes += 1;
+    
         const updatedPost = await post.save();
     
         return updatedPost;

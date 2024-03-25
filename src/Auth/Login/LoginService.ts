@@ -16,10 +16,10 @@ export class LoginService {
 			return { user: null, accessToken: null };
 		}
 
-		const accessToken = jwt.sign({ userId: user._id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+		const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 		return { user, accessToken };
 	}
-	
+
 	async generateRefreshToken(userId: string): Promise<string | null> {
 		const refreshToken = jwt.sign({ userId }, REFRESH_TOKEN_SECRET);
 		return refreshToken;

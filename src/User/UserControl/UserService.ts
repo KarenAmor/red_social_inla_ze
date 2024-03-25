@@ -5,10 +5,11 @@ import IUser from '../../interfaces/IUser';
 export class UserService {
 	constructor(private readonly userRepository: typeof UserSchema) {}
 
-	async findAll(): Promise<Document[]> {
-		const users: Document[] = await UserSchema.find();
-		return users;
-	}
+	async findAll(page: number, pageSize: number): Promise<Document[]> {
+        const skip = (page - 1) * pageSize;
+        const users: Document[] = await this.userRepository.find().skip(skip).limit(pageSize);
+        return users;
+    }
 
 	async findById(userId: string): Promise<Document | null> {
         const user = await UserSchema.findById(userId);

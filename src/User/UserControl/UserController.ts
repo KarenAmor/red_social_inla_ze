@@ -8,8 +8,18 @@ export class UserController {
 
 	async getAll(request: Request, response: Response): Promise<Response> {
 		try {
-			const users = await this.userService.findAll();
-			return response.status(StatusCodes.OK).json(users);
+			const page: number = parseInt(request.query.page as string) || 1;
+            const pageSize: number = parseInt(request.query.pageSize as string) || 10;
+
+			const users = await this.userService.findAll(page, pageSize);
+
+			const responseData = {
+				Page: page,
+				PageSize: pageSize,
+				Users: users
+			};
+
+			return response.status(StatusCodes.OK).json(responseData);
 		} catch (err: any) {
 			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: err.message });
 		}
