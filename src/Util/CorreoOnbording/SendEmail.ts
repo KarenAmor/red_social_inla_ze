@@ -1,23 +1,25 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
 
-async function sendMail(email: string, subject: string, templatePath: string, nombre: string) { // Corregir los argumentos
+dotenv.config(); 
+
+async function sendMail(email: string, subject: string, templatePath: string, nombre: string) {
   const transporter: Transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || '587'), 
     auth: {
-      user: 'madonna.lockman@ethereal.email',
-      pass: 'e5RgtNScxpJ4pHqQhF'
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
     }
   });
 
   const template: string = fs.readFileSync(path.resolve(__dirname, templatePath), 'utf8');
-  const modifiedTemplate: string = template
-    .replace('<%= fullName %>', nombre)
+  const modifiedTemplate: string = template.replace('<%= fullName %>', nombre);
 
   const mailOptions = {
-    from: 'karedimor@gmail.com',
+    from: process.env.EMAIL_FROM,
     to: email,
     subject: subject,
     html: modifiedTemplate,
@@ -25,7 +27,7 @@ async function sendMail(email: string, subject: string, templatePath: string, no
 
   try {
     let info = await transporter.sendMail(mailOptions);
-    console.log('Vista previa del correo en Ethereal: %s', nodemailer.getTestMessageUrl(info));
+    console.log('Vista previa del correo en Ethereal:', nodemailer.getTestMessageUrl(info));
   } catch (error) {
     console.error('Error al enviar el correo:', error);
   }

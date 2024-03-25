@@ -25,6 +25,9 @@ API de Negocio que administra una red social que permita a los usuarios registra
 - Lenguaje de Programación: Typescript
 - Entorno de Ejecución: Node.JS 18
 - Gestor de Paquetes: npm
+- Backend: ExpressJS
+- Base de Datos: MongoDB
+- Infraestructura: Microservicios
 - Tipo de despliegue: Container (Docker)
 
 

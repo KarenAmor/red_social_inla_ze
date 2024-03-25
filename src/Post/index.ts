@@ -31,6 +31,12 @@ router.get('/post/:userId', async (req: Request, res: Response) => {
     return await controller.getByUserId(req, res);
 });
 
+router.post('/posts/:id/like',  async (req: Request, res: Response) => {
+    const service = new PostService(PostsSchema);
+    const controller = new PostController(service);
+    return await controller.likePost(req, res);
+});
+
 // Rutas con autenticación
 router.put('/post/:id', authenticateUser, async (req: Request, res: Response) => {
     const service = new PostService(PostsSchema);
@@ -42,12 +48,6 @@ router.delete('/post/:id', authenticateUser, async (req: Request, res: Response)
     const service = new PostService(PostsSchema);
     const controller = new PostController(service);
     return await controller.delete(req, res);
-});
-
-router.post('/posts/:id/like',  async (req: Request, res: Response) => {
-    const service = new PostService(PostsSchema);
-    const controller = new PostController(service);
-    return await controller.likePost(req, res);
 });
 
 export default router;

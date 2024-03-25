@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { LoginService } from './LoginService';
 
-const ACCESS_TOKEN_SECRET = 'secret_key';
-const REFRESH_TOKEN_SECRET = 'refresh_secret_key';
+dotenv.config(); 
+
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'default_access_secret';
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'default_refresh_secret';
+
 
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}

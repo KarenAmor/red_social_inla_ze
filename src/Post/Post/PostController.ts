@@ -11,12 +11,8 @@ export class PostController {
             const page: number = parseInt(request.query.page as string) || 1;
             const pageSize: number = parseInt(request.query.pageSize as string) || 10;
 
-            console.log('Page:', page);
-            console.log('PageSize:', pageSize);
-
             const posts = await this.postService.findAllWithAuthorName(page, pageSize);
 
-            console.log('Posts:', posts);
 			const responseData = {
 				Page: page,
 				PageSize: pageSize,
@@ -46,7 +42,6 @@ export class PostController {
 
 	async getByUserId(request: Request, response: Response): Promise<Response> {
 		const userId = request.params.userId;
-		console.log("soy el id", userId);
 
 		try {
 			const posts = await this.postService.findByUserId(userId);
@@ -57,14 +52,11 @@ export class PostController {
 	}
 
     async create(request: Request, response: Response): Promise<Response> {
-		console.log('request', request.body);
 		const post: IPost = request.body;
-		console.log('user', post);
 
 		try {
 			const createUser = await this.postService.create(post);
 			return response.status(StatusCodes.CREATED).json(createUser);
-			// TODO: Type error
 		} catch (err: any) {
 			return response.status(500).json({ err: err.message });
 		}

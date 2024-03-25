@@ -25,7 +25,7 @@ router.post('/logout', async (req: Request, res: Response) => {
 	return await controller.logout(req, res);
 });
 
-router.get('/refreshToken', async (req: Request, res: Response) => {
+router.post('/refreshToken', async (req: Request, res: Response) => {
 	const service = new LoginService(UserSchema);
 	const controller = new LoginController(service);
 	return await controller.refreshToken(req, res);
