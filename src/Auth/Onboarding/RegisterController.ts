@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
 import { RegisterService } from './RegisterService';
 import IUser from 'interfaces/IUser';
-import sendMail from '/Users/kmorenom/Developer/red_social_inla_ze/src/Util/CorreoOnbording/SendEmail'
+import sendMail from '../../Util/CorreoOnbording/SendEmail'
 
 export class RegisterController {
 	constructor(private readonly registerService: RegisterService) {}
@@ -10,9 +10,9 @@ export class RegisterController {
 	async create(request: Request, response: Response): Promise<Response> {
 		console.log('request', request.body);
 		const user: IUser = request.body;
-		const templatePath = '../util/emailTemplate.html';
+		const templatePath = '../../Util/CorreoOnbording/emailTemplete.html'
 		console.log('user', user);
-		await sendMail(templatePath, user.fullName, user.email)
+		await sendMail(user.email, 'Asunto del correo', templatePath, user.fullName); 
 
 		try {
 			const createUser = await this.registerService.create(user);

@@ -2,7 +2,7 @@ import nodemailer, { Transporter } from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
 
-async function sendMail(email: string, subject: string, templatePath: string, nombre: string) {
+async function sendMail(email: string, subject: string, templatePath: string, nombre: string) { // Corregir los argumentos
   const transporter: Transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,

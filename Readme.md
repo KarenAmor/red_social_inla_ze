@@ -1,5 +1,5 @@
 # Red Social para la Empresa Inla Ze - Version 1.0.0
-API de Negocio que administra una red social que permita a los usuarios registrarse, iniciar sesión, publicar mensajes, ver el muro, buscar mensajes y otras funcionalidades adicionales.
+API de Negocio que administra una red social que permita a los usuarios registrarse (correo de registro en Ethereal), iniciar sesión, publicar mensajes, ver el muro, buscar mensajes y otras funcionalidades adicionales.
 
 ## Especificaciones Funcionales
 ## Métodos HTTP
