@@ -19,6 +19,7 @@ API de Negocio que administra una red social que permita a los usuarios registra
 - GET /post/post/:userId Obtener y filtrar publicaciones por usuario
 - PUT /post/post/:id - Actualizar una publicación
 - DELETE /post/post - Eliminar una publicación (soft delete)
+- POST /posts/:id/like - Aumenta el contador de likes de un post
 
 ## Especificaciones Técnicas
 - Lenguaje de Programación: Typescript

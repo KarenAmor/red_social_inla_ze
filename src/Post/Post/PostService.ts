@@ -49,4 +49,18 @@ export class PostService {
     async delete(postId: string): Promise<void> {
 		await PostSchema.findByIdAndUpdate(postId, { deleted: true, deletedAt: new Date() });
 	}
+
+    async likePost(postId: string): Promise<Document | null> {
+        const post = await PostSchema.findById(postId);
+    
+        if (!post) {
+            throw new Error('Post no encontrado');
+        }
+    
+        post.likes += 1;
+        const updatedPost = await post.save();
+    
+        return updatedPost;
+    }
+    
 }

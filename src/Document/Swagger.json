@@ -248,6 +248,19 @@
                     }
                 }
             }
+        },
+        "/posts/{id}/like": {
+            "post": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Dar like",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
         }
     }
 }

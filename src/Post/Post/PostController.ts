@@ -90,4 +90,16 @@ export class PostController {
 			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: err.message });
 		}
 	}
+
+	async likePost(request: Request, response: Response): Promise<Response> {
+		const postId = request.params.id;
+	
+		try {
+			const updatedPost = await this.postService.likePost(postId);
+			return response.status(StatusCodes.OK).json(updatedPost);
+		} catch (err: any) {
+			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: err.message });
+		}
+	}
+	
 }
