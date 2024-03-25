@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 import IUser from 'interfaces/IUser';
 
 // 2. Create a Schema corresponding to the document interface.
@@ -7,7 +7,7 @@ const userSchema = new Schema<IUser>({
 	age: { type: Number, required: true},
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true},
-	posts: { type: String, required: false}, 
+	posts: [{ type: Types.ObjectId, ref: 'Post' }],
 	createdAt: { type: Date, default: Date.now }, 
     updatedAt: { type: Date, required: false, default: Date.now },
 	deleted: {type: Boolean, required: false, default: false},

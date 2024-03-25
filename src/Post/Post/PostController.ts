@@ -7,13 +7,28 @@ export class PostController {
 	constructor(private readonly postService: PostService) {}
 
 	async getAll(request: Request, response: Response): Promise<Response> {
-		try {
-			const post = await this.postService.findAll();
-			return response.status(StatusCodes.OK).json(post);
-		} catch (err: any) {
-			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: err.message });
-		}
-	}
+        try {
+            const page: number = parseInt(request.query.page as string) || 1;
+            const pageSize: number = parseInt(request.query.pageSize as string) || 10;
+
+            console.log('Page:', page);
+            console.log('PageSize:', pageSize);
+
+            const posts = await this.postService.findAllWithAuthorName(page, pageSize);
+
+            console.log('Posts:', posts);
+			const responseData = {
+				Page: page,
+				PageSize: pageSize,
+				Posts: posts
+			};
+
+            return response.status(StatusCodes.OK).json(responseData);
+        } catch (err: any) {
+            console.error('Error:', err);
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: err.message });
+        }
+    }
 
     async getById(request: Request, response: Response): Promise<Response> {
         const postId = request.params.id;
@@ -29,6 +44,17 @@ export class PostController {
         }
     }
 
+	async getByUserId(request: Request, response: Response): Promise<Response> {
+		const userId = request.params.userId;
+		console.log("soy el id", userId);
+
+		try {
+			const posts = await this.postService.findByUserId(userId);
+			return response.status(StatusCodes.OK).json(posts);
+		} catch (err: any) {
+			return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: err.message });
+		}
+	}
 
     async create(request: Request, response: Response): Promise<Response> {
 		console.log('request', request.body);

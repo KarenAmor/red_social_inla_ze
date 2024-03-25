@@ -21,6 +21,6 @@ export class UserService {
 	}
 
     async delete(userId: string): Promise<void> {
-		await UserSchema.findByIdAndUpdate(userId, { deleted: true });
+		await UserSchema.findByIdAndUpdate(userId, { deleted: true, deletedAt: new Date() });
 	}
 }
