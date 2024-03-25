@@ -4,21 +4,21 @@ API de Negocio que administra una red social que permita a los usuarios registra
 ## Especificaciones Funcionales
 ## Métodos HTTP
 ### Auth: /auth
-POST /auth/register - Registrarse
-POST /auth/login - Iniciar sesión
-POST /auth/logout - Cerrar sesión
-GET /auth/refresh - Refresh token
+- POST /auth/register - Registrarse
+- POST /auth/login - Iniciar sesión
+- POST /auth/logout - Cerrar sesión
+- GET /auth/refresh - Refresh token
 ### User: /user
-GET /user/users - Obtener información de los usuario
-GET /user/user/:id - Obtener información del usuario
-PUT /user/users/:id - Actualizar información del usuario
-DELETE /user/users/:id - Eliminar usuario (soft delete)
+- GET /user/users - Obtener información de los usuario
+- GET /user/user/:id - Obtener información del usuario
+- PUT /user/users/:id - Actualizar información del usuario
+- DELETE /user/users/:id - Eliminar usuario (soft delete)
 ### Post: /post
-GET /post/post - Obtener y filtrar publicaciones
-POST /post/post - Hacer una publicación
-GET /post/post/:userId Obtener y filtrar publicaciones por usuario
-PUT /post/post/:id - Actualizar una publicación
-DELETE /post/post - Eliminar una publicación (soft delete)
+- GET /post/post - Obtener y filtrar publicaciones
+- POST /post/post - Hacer una publicación
+- GET /post/post/:userId Obtener y filtrar publicaciones por usuario
+- PUT /post/post/:id - Actualizar una publicación
+- DELETE /post/post - Eliminar una publicación (soft delete)
 
 ## Especificaciones Técnicas
 - Lenguaje de Programación: Typescript
