@@ -1,0 +1,253 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Red Social para la Empresa Inla Ze",
+        "description": "Documentación de la API de Negocio que administra una red social que permita a los usuarios registrarse, iniciar sesión, publicar mensajes, ver el muro, buscar mensajes y otras funcionalidades adicionales.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Servidor local"
+        }
+    ],
+    "tags": [
+        {
+            "name": "auth",
+            "description": "Servicios de autenticación"
+        },
+        {
+            "name": "user",
+            "description": "Servicios de usuario"
+        },
+        {
+            "name": "post",
+            "description": "Servicios de publicación"
+        }
+    ],
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Registrarse",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Iniciar sesión",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Cerrar sesión",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Refresh token",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/user/users": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Obtener información de los usuarios",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/user/user/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Obtener información del usuario por ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/user/users/{id}": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Actualizar información del usuario por ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Eliminar usuario por ID (soft delete)",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/post/post": {
+            "get": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Obtener y filtrar publicaciones",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Hacer una publicación",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/post/post/{userId}": {
+            "get": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Obtener y filtrar publicaciones por usuario",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/post/post/{id}": {
+            "put": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Actualizar una publicación por ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Eliminar una publicación por ID (soft delete)",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}

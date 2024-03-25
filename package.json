@@ -18,6 +18,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.11.30",
     "@types/nodemailer": "^6.4.14",
+    "@types/swagger-ui-express": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.57.0",
@@ -36,6 +37,7 @@
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.3",
     "node-mailjet": "^6.0.5",
-    "nodemailer": "^6.9.13"
+    "nodemailer": "^6.9.13",
+    "swagger-ui-express": "^5.0.0"
   }
 }
