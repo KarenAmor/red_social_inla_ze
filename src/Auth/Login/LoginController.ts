@@ -25,7 +25,7 @@ export class LoginController {
 				return response.status(StatusCodes.UNAUTHORIZED).json({ message: 'Credenciales inválidas' });
 			}
 
-			const welcomeMessage = `¡Bienvenido, ${user.fullName}! Has iniciado sesión correctamente.`;
+			const welcomeMessage = `¡Hola, ${user.fullName}! Has iniciado sesión correctamente.`;
 
 			return response.status(StatusCodes.OK).json({ token: accessToken, message: welcomeMessage });
 		} catch (error) {

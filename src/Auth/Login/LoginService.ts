@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import UserSchema from '../../schemas/usersSchema';
 import IUser from '../../interfaces/IUser';
 import jwt from 'jsonwebtoken';
@@ -11,12 +12,21 @@ export class LoginService {
 
 	async login(email: string, password: string): Promise<{ user: IUser | null; accessToken: string | null }> {
 		const user = await this.userRepository.findOne({ email });
-
-		if (!user || user.password !== password) {
+	
+		if (!user) {
 			return { user: null, accessToken: null };
 		}
-
+	
+		// Desencriptar la contraseña almacenada y compararla con la contraseña proporcionada
+		const isPasswordValid = await bcrypt.compare(password, user.password);
+	
+		if (!isPasswordValid) {
+			return { user: null, accessToken: null };
+		}
+	
+		// Generar token de acceso
 		const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+	
 		return { user, accessToken };
 	}
 

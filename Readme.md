@@ -1,4 +1,4 @@
-# Red Social para la Empresa Inla Ze - Version 1.0.0
+# Red Social Inla Zee - Version 1.0.0
 API de Negocio que administra una red social que permita a los usuarios registrarse (correo de registro en Ethereal), iniciar sesión, publicar mensajes, ver el muro, buscar mensajes y otras funcionalidades adicionales.
 
 ## Especificaciones Funcionales
@@ -55,4 +55,8 @@ Ejecuta el contenedor.
 ```bash
 docker run -p 3000:3000 red-social-backend
 ```
-¡Ahora la aplicación estará funcionando en el puerto 3000 de tu máquina local!
+¡Ahora la aplicación estará funcionando en el puerto 5000 de tu máquina local!
+
+## Mejoras Pendientes
+
+Generacion del token, Cerrar session y refrest Token
